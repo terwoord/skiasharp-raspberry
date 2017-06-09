@@ -16,16 +16,15 @@ if true; then
 
     cd externals/skia
 
-    python tools/git-sync-deps
+#    python tools/git-sync-deps
 
     cd /home/matthijs/skia
-    git apply ../skia-scripts/skiasharp.patch
+    git apply /home/matthijs/skia-script/skiasharp.patch
 
     cd /home/matthijs/skia/externals/skia
-    git apply ../skia-scripts/skia-build-script-changes.patch
+    git apply /home/matthijs/skia-script/skia-build-script-changes.patch
     
 fi
-
 
 cd /home/matthijs/skia/externals/skia
 export PATH="$PATH:/home/matthijs/skia/externals/depot_tools"
