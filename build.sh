@@ -23,7 +23,6 @@ if true; then
 
     cd /home/matthijs/skia/externals/skia
     git apply ../skia-scripts/skia-build-script-changes.patch
-
     
 fi
 
@@ -34,48 +33,48 @@ export PATH="$PATH:/home/matthijs/skia/externals/depot_tools"
 
 if true; then
 
-rm -Rf out
+    rm -Rf out
 
-gn gen out/linux/arm --args='
-  target_cpu = "arm" 
-  cc = "clang" 
-  cxx = "clang++"
-  skia_enable_gpu = false
-  skia_use_libjpeg_turbo = false
- 
-  is_official_build = true
-  skia_enable_tools = false
- 
-  skia_use_icu = false
-  skia_use_sfntly = false
-  skia_use_system_freetype2 = false
-  is_debug = false
- 
-  extra_cflags = [
-    "-g",
-    "-target", "armv7a-linux",
-    "-mfloat-abi=hard",
-    "-mfpu=neon",
-    "--sysroot=/root/rpi",
-    "-I/root/rpi/usr/include/c++/4.9",
-    "-I/root/rpi/usr/include/arm-linux-gnueabihf",
-    "-I/root/rpi/usr/include/arm-linux-gnueabihf/c++/4.9",
-    "-I/root/rpi/usr/include/freetype2",
-    "-DSKIA_C_DLL",
-  ]
-  extra_asmflags = [
-    "-g",
-    "-target", "armv7a-linux",
-    "-mfloat-abi=hard",
-    "-mfpu=neon",
-  ]
-'
-
-ninja -C out/linux/arm
+    gn gen out/linux/arm --args='
+      target_cpu = "arm" 
+      cc = "clang" 
+      cxx = "clang++"
+      skia_enable_gpu = false
+      skia_use_libjpeg_turbo = false
+     
+      is_official_build = true
+      skia_enable_tools = false
+     
+      skia_use_icu = false
+      skia_use_sfntly = false
+      skia_use_system_freetype2 = false
+      is_debug = false
+     
+      extra_cflags = [
+        "-g",
+        "-target", "armv7a-linux",
+        "-mfloat-abi=hard",
+        "-mfpu=neon",
+        "--sysroot=/root/rpi",
+        "-I/root/rpi/usr/include/c++/4.9",
+        "-I/root/rpi/usr/include/arm-linux-gnueabihf",
+        "-I/root/rpi/usr/include/arm-linux-gnueabihf/c++/4.9",
+        "-I/root/rpi/usr/include/freetype2",
+        "-DSKIA_C_DLL",
+      ]
+      extra_asmflags = [
+        "-g",
+            "-target", "armv7a-linux",
+            "-mfloat-abi=hard",
+            "-mfpu=neon",
+          ]
+        '
+    
+    ninja -C out/linux/arm
 
 fi
 
-# nu skiasharp
+# now skiasharp
 
 cd ../../native-builds/libSkiaSharp_linux
 
