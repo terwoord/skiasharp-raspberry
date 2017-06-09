@@ -16,7 +16,7 @@ if true; then
 
     cd externals/skia
 
-#    python tools/git-sync-deps
+    python tools/git-sync-deps
 
     cd /home/matthijs/skia
     git apply /home/matthijs/skia-script/skiasharp.patch
