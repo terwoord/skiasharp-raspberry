@@ -1,0 +1,20 @@
+diff --git a/gn/BUILD.gn b/gn/BUILD.gn
+index 9e8b05ee0f..cbc3083c43 100644
+--- a/gn/BUILD.gn
++++ b/gn/BUILD.gn
+@@ -26,6 +26,7 @@ declare_args() {
+   extra_cflags_c = []
+   extra_cflags_cc = []
+   extra_ldflags = []
++  extra_asmflags = []
+ 
+   cc_wrapper = ""
+   malloc = ""
+@@ -403,6 +404,7 @@ config("extra_flags") {
+   cflags_c = extra_cflags_c
+   cflags_cc = extra_cflags_cc
+   ldflags = extra_ldflags
++  asmflags = extra_asmflags
+ }
+ 
+ config("debug_symbols") {
