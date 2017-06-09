@@ -1,9 +1,3 @@
-diff --git a/externals/skia b/externals/skia
---- a/externals/skia
-+++ b/externals/skia
-@@ -1 +1 @@
--Subproject commit 799209411ee741b4a2c90bca87de8448e3965285
-+Subproject commit 799209411ee741b4a2c90bca87de8448e3965285-dirty
 diff --git a/native-builds/libSkiaSharp_linux/Makefile b/native-builds/libSkiaSharp_linux/Makefile
 index 2cde7bf..725db9c 100644
 --- a/native-builds/libSkiaSharp_linux/Makefile

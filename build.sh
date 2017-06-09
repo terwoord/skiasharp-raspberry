@@ -18,8 +18,13 @@ if true; then
 
     python tools/git-sync-deps
 
-    cd /home/matthijs
+    cd /home/matthijs/skia
+    git apply ../skia-scripts/skiasharp.patch
 
+    cd /home/matthijs/skia/externals/skia
+    git apply ../skia-scripts/skia-build-script-changes.patch
+
+    
 fi
 
 
