@@ -36,8 +36,8 @@ if true; then
 
     gn gen out/linux/arm --args='
       target_cpu = "arm" 
-      cc = "clang" 
-      cxx = "clang++"
+      cc = "clang-3.8" 
+      cxx = "clang++-3.8"
       skia_enable_gpu = false
       skia_use_libjpeg_turbo = false
      
