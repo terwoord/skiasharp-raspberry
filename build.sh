@@ -1,15 +1,38 @@
 #!/bin/bash
 set -x
 
-#clean build?
+export BASE_DIR=`pwd`
+
+export BUILD_DIR=$BASE_DIR/build
+export RPI_ROOT=$BUILD_DIR/rpi
+
+# clean raspberry root?
 
 if true; then
 
-    rm -Rf /home/matthijs/skia
-    mkdir /home/matthijs/skia
-    cd /home/matthijs/skia
+    rm -Rf $RPI_ROOT
+    mkdir $RPI_ROOT
+    cd $RPI_ROOT
 
-    git clone https://github.com/mono/SkiaSharp.git .
+    debootstrap --foreign --arch armel jessie $RPI_ROOT http://ftp.debian.org/debian
+
+
+
+fi
+
+exit
+
+# clean build?
+if true; then
+
+    rm -Rf $BUILD_DIR
+    mkdir $BUILD_DIR
+    cd $BUILD_DIR
+
+
+    exit
+
+    git clone https://github.com/mono/SkiaSharp.git skia
     git checkout tags/v1.57.1
 
     git submodule update --init --recursive
