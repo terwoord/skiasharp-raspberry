@@ -7,6 +7,8 @@ The contents of this repository are free to use for all! Please make pull-reques
 The script is being developed on Ubuntu 17.04 and/or 14.04.
 
 Requirements of the script:
-- Clang
+- Clang (Verified using 3.8 and 4.0)
 - build-essential
 - g++-arm-linux-gnueabihf
+- libglib2.0-dev
+
