@@ -11,7 +11,7 @@ export RPI_ROOT=$BUILD_DIR/rpi
 if true; then
 
     rm -Rf $RPI_ROOT
-    mkdir $RPI_ROOT
+    mkdir -p $RPI_ROOT
     cd $RPI_ROOT
 
     debootstrap --foreign --arch armel jessie $RPI_ROOT http://ftp.debian.org/debian
@@ -26,7 +26,7 @@ exit
 if true; then
 
     rm -Rf $BUILD_DIR
-    mkdir $BUILD_DIR
+    mkdir -p $BUILD_DIR
     cd $BUILD_DIR
 
 
