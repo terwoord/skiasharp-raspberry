@@ -15,9 +15,6 @@ if true; then
     cd $RPI_ROOT
 
     debootstrap --foreign --arch armel jessie $RPI_ROOT http://ftp.debian.org/debian
-
-
-
 fi
 
 # clean build?
