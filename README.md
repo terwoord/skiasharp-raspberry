@@ -11,4 +11,5 @@ Requirements of the script:
 - build-essential
 - g++-arm-linux-gnueabihf
 - libglib2.0-dev
+- debootstrap
 
