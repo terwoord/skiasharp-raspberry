@@ -20,8 +20,6 @@ if true; then
 
 fi
 
-exit
-
 # clean build?
 if true; then
 
