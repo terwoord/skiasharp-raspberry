@@ -33,26 +33,26 @@ if true; then
 
     python tools/git-sync-deps
 
-    cd /home/matthijs/skia
-    git apply /home/matthijs/skia-script/skiasharp.patch
+    cd $BUILD_DIR/skia
+    git apply $BASE_DIR/skia-script/skiasharp.patch
 
-    cd /home/matthijs/skia/externals/skia
-    git apply /home/matthijs/skia-script/skia-build-script-changes.patch
+    cd $BUILD_DIR/skia/externals/skia
+    git apply $BASE_DIR/skia-build-script-changes.patch
     
 fi
 
-cd /home/matthijs/skia/externals/skia
-export PATH="$PATH:/home/matthijs/skia/externals/depot_tools"
+cd $BUILD_DIR/skia/externals/skia
+export PATH="$PATH:$BUILD_DIR/skia/externals/depot_tools"
 
 
 if true; then
 
     rm -Rf out
 
-    gn gen out/linux/arm --args='
-      target_cpu = "arm" 
-      cc = "clang-3.8" 
-      cxx = "clang++-3.8"
+    gn gen out/linux/arm --args="
+      target_cpu = 'arm' 
+      cc = 'clang-3.8' 
+      cxx = 'clang++-3.8'
       skia_enable_gpu = false
       skia_use_libjpeg_turbo = false
      
@@ -65,25 +65,25 @@ if true; then
       is_debug = false
      
       extra_cflags = [
-        "-g",
-        "-target", "armv7a-linux",
-        "-mfloat-abi=hard",
-        "-mfpu=neon",
-        "--sysroot=/root/rpi",
-        "-I/root/rpi/usr/include/c++/4.9",
-        "-I/root/rpi/usr/include/arm-linux-gnueabihf",
-        "-I/root/rpi/usr/include/arm-linux-gnueabihf/c++/4.9",
-        "-I/root/rpi/usr/include/freetype2",
-        "-DSKIA_C_DLL",
+        '-g',
+        '-target', 'armv7a-linux',
+        '-mfloat-abi=hard',
+        '-mfpu=neon',
+        '--sysroot=/root/rpi',
+        '-I$RPI_ROOT/usr/include/c++/4.9',
+        '-I$RPI_ROOT/usr/include/arm-linux-gnueabihf',
+        '-I$RPI_ROOT/usr/include/arm-linux-gnueabihf/c++/4.9',
+        '-I$RPI_ROOT/usr/include/freetype2',
+        '-DSKIA_C_DLL'
       ]
       extra_asmflags = [
-        "-g",
-            "-target", "armv7a-linux",
-            "-mfloat-abi=hard",
-            "-mfpu=neon",
+            '-g',
+            '-target', 'armv7a-linux',
+            '-mfloat-abi=hard',
+            '-mfpu=neon',
           ]
-        '
-    
+        "
+
     ninja -C out/linux/arm
 
 fi
