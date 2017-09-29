@@ -24,9 +24,6 @@ if true; then
     mkdir -p $BUILD_DIR
     cd $BUILD_DIR
 
-
-    exit
-
     git clone https://github.com/mono/SkiaSharp.git skia
     git checkout tags/v1.57.1
 
