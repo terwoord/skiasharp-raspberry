@@ -1,10 +1,10 @@
 #!/bin/bash
 set -x
 
-export BASE_DIR=`pwd`
+export BASE_DIR=`/home/matthijs/skiasharp-raspberry`
 
 export BUILD_DIR=$BASE_DIR/build
-export RPI_ROOT=$BUILD_DIR/rpi
+export RPI_ROOT=$BASE_DIR/rpi
 
 # clean raspberry root?
 
@@ -14,7 +14,11 @@ if true; then
     mkdir -p $RPI_ROOT
     cd $RPI_ROOT
 
-    debootstrap --foreign --arch armel jessie $RPI_ROOT http://ftp.debian.org/debian
+    qemu-debootstrap --foreign --arch armhf jessie $RPI_ROOT http://ftp.debian.org/debian
+
+    chroot $RPI_ROOT apt -q -y --force-yes install build-essential
+    chroot $RPI_ROOT apt -q -y --force-yes install gcc-multilib g++-multilib
+    chroot $RPI_ROOT apt -q -y --force-yes install libstdc++-4.8-dev
 fi
 
 # clean build?
@@ -25,8 +29,8 @@ if true; then
     cd $BUILD_DIR
 
     git clone https://github.com/mono/SkiaSharp.git skia
+    cd skia
     git checkout tags/v1.57.1
-
     git submodule update --init --recursive
 
     cd externals/skia
@@ -34,13 +38,13 @@ if true; then
     python tools/git-sync-deps
 
     cd $BUILD_DIR/skia
-    git apply $BASE_DIR/skia-script/skiasharp.patch
+    git apply $BASE_DIR/skiasharp.patch
 
     cd $BUILD_DIR/skia/externals/skia
     git apply $BASE_DIR/skia-build-script-changes.patch
     
 fi
-
+exit
 cd $BUILD_DIR/skia/externals/skia
 export PATH="$PATH:$BUILD_DIR/skia/externals/depot_tools"
 
@@ -49,10 +53,10 @@ if true; then
 
     rm -Rf out
 
-    gn gen out/linux/arm --args="
-      target_cpu = 'arm' 
-      cc = 'clang-3.8' 
-      cxx = 'clang++-3.8'
+    gn gen out/linux/arm --args='
+      target_cpu = "arm"
+      cc = "clang-3.8"
+      cxx = "clang++-3.8"
       skia_enable_gpu = false
       skia_use_libjpeg_turbo = false
      
@@ -65,24 +69,24 @@ if true; then
       is_debug = false
      
       extra_cflags = [
-        '-g',
-        '-target', 'armv7a-linux',
-        '-mfloat-abi=hard',
-        '-mfpu=neon',
-        '--sysroot=/root/rpi',
-        '-I$RPI_ROOT/usr/include/c++/4.9',
-        '-I$RPI_ROOT/usr/include/arm-linux-gnueabihf',
-        '-I$RPI_ROOT/usr/include/arm-linux-gnueabihf/c++/4.9',
-        '-I$RPI_ROOT/usr/include/freetype2',
-        '-DSKIA_C_DLL'
+        "-g",
+        "-target", "armv7a-linux",
+        "-mfloat-abi=hard",
+        "-mfpu=neon",
+        "--sysroot=/home/matthijs/skiasharp-raspberry/rpi",
+        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/c++/4.9",
+        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/arm-linux-gnueabi",
+        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/arm-linux-gnueabi/c++/4.9",
+        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/freetype2",
+        "-DSKIA_C_DLL"
       ]
       extra_asmflags = [
-            '-g',
-            '-target', 'armv7a-linux',
-            '-mfloat-abi=hard',
-            '-mfpu=neon',
+            "-g",
+            "-target", "armv7a-linux",
+            "-mfloat-abi=hard",
+            "-mfpu=neon",
           ]
-        "
+        '
 
     ninja -C out/linux/arm
 
