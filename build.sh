@@ -1,10 +1,18 @@
 #!/bin/bash
 set -x
 
-export BASE_DIR="/home/matthijs/skiasharp-raspberry"
+# get current script path and use it as the base directory
+
+SCRIPT=$(readlink -f "$0")
+
+export BASE_DIR=$(dirname "$SCRIPT")
 
 export BUILD_DIR=$BASE_DIR/build
 export RPI_ROOT=$BASE_DIR/rpi
+
+# install required dependencies
+
+sudo apt-get install apt qemu-user-static debootstrap clang build-essential g++-arm-linux-gnueabihf libglib2.0-dev 
 
 # clean raspberry root?
 
@@ -49,7 +57,6 @@ fi
 cd $BUILD_DIR/skia/externals/skia
 export PATH="$PATH:$BUILD_DIR/skia/externals/depot_tools"
 
-
 if true; then
 
     rm -Rf out
@@ -74,11 +81,11 @@ if true; then
         "-target", "armv7a-linux",
         "-mfloat-abi=hard",
         "-mfpu=neon",
-        "--sysroot=/home/matthijs/skiasharp-raspberry/rpi",
-        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/c++/4.9",
-        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/arm-linux-gnueabihf",
-        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/arm-linux-gnueabihf/c++/4.9",
-        "-I/home/matthijs/skiasharp-raspberry/rpi/usr/include/freetype2",
+        "--sysroot='$RPI_ROOT'",
+        "-I'$RPI_ROOT'/usr/include/c++/4.9",
+        "-I'$RPI_ROOT'/usr/include/arm-linux-gnueabihf",
+        "-I'$RPI_ROOT'/usr/include/arm-linux-gnueabihf/c++/4.9",
+        "-I'$RPI_ROOT'/usr/include/freetype2",
         "-DSKIA_C_DLL"
       ]
       extra_asmflags = [
@@ -99,7 +106,7 @@ cd ../../native-builds/libSkiaSharp_linux
 
 make clean
 
-ARCH=arm SUPPORT_GPU=0 CXX=arm-linux-gnueabihf-g++ CC=arm-linux-gnueabihf-g++ LDFLAGS="-Wl,-L /home/matthijs/skiasharp-raspberry/rpi/usr/lib/arm-linux-gnueabihf -Wl,-g -Wl,-lfreetype" CXXFLAGS="-march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard" make
+ARCH=arm SUPPORT_GPU=0 CXX=arm-linux-gnueabihf-g++ CC=arm-linux-gnueabihf-g++ LDFLAGS="-Wl,-L $RPI_ROOT/usr/lib/arm-linux-gnueabihf -Wl,-g -Wl,-lfreetype" CXXFLAGS="-march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard" make
 
 # ARCH=arm SUPPORT_GPU=0 CXX=clang++ CC=clang++ LDFLAGS="-target armv7a-linux -mfloat-abi=hard -mfpu=vfpv3 -Wl,-L /root/rpi/usr/lib/arm-linux-gnueabihf -Wl,-g -Wl,-lfreetype" CXXFLAGS="-target armv7a-linux -mfloat-abi=hard -mfpu=vfpv3 --sysroot=/root/rpi -std=c++11" make
 
