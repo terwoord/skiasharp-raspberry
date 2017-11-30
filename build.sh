@@ -10,10 +10,6 @@ export BASE_DIR=$(dirname "$SCRIPT")
 export BUILD_DIR=$BASE_DIR/build
 export RPI_ROOT=$BASE_DIR/rpi
 
-# install required dependencies
-
-sudo apt-get install apt qemu-user-static debootstrap clang build-essential g++-arm-linux-gnueabihf libglib2.0-dev 
-
 # clean raspberry root?
 
 if true; then
