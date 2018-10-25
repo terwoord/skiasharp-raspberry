@@ -42,11 +42,11 @@ if true; then
 
     python tools/git-sync-deps
 
-    cd $BUILD_DIR/skia
-    git apply $BASE_DIR/skiasharp.patch
+#    cd $BUILD_DIR/skia
+#    git apply $BASE_DIR/skiasharp.patch
 
-    cd $BUILD_DIR/skia/externals/skia
-    git apply $BASE_DIR/skia-build-script-changes.patch
+#    cd $BUILD_DIR/skia/externals/skia
+#    git apply $BASE_DIR/skia-build-script-changes.patch
     
 fi
 
