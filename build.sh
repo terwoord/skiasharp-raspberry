@@ -35,7 +35,7 @@ if true; then
 
     git clone https://github.com/mono/SkiaSharp.git skia
     cd skia
-    git checkout tags/v1.57.1
+    git checkout tags/v1.60.3
     git submodule update --init --recursive
 
     cd externals/skia
@@ -59,8 +59,8 @@ if true; then
 
     gn gen out/linux/arm --args='
       target_cpu = "arm"
-      cc = "clang-3.8"
-      cxx = "clang++-3.8"
+      cc = "clang-4.0"
+      cxx = "clang++-4.0"
       skia_enable_gpu = false
       skia_use_libjpeg_turbo = false
      
@@ -74,7 +74,7 @@ if true; then
      
       extra_cflags = [
         "-g",
-        "-target", "armv7a-linux",
+        "-target=armv7a-linux-gnueabihf",
         "-mfloat-abi=hard",
         "-mfpu=neon",
         "--sysroot='$RPI_ROOT'",
@@ -86,15 +86,24 @@ if true; then
       ]
       extra_asmflags = [
             "-g",
-            "-target", "armv7a-linux",
-            "-mfloat-abi=hard",
+            "--target=armv7a-linux-gnueabihf",
+            "--sysroot='$RPI_ROOT'",
+			"-march=armv7-a"
             "-mfpu=neon",
+			"-mthumb"
           ]
+	  extra_ldflags = [
+			"--sysroot='$RPI_ROOT'",
+			"--target=armv7a-linux-gnueabihf"
+		  ]
         '
 
-    ninja -C out/linux/arm
+    ninja 'SkiaSharp' -C out/linux/arm
 
 fi
+
+echo "klaar"
+exit
 
 # now skiasharp
 
