@@ -61,6 +61,7 @@ if true; then
       target_cpu = "arm"
       cc = "clang-4.0"
       cxx = "clang++-4.0"
+      ld = "lld-4.0"
       
       skia_enable_gpu = false
       skia_use_libjpeg_turbo = false
