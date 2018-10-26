@@ -88,7 +88,7 @@ if true; then
             "-g",
             "--target=armv7a-linux-gnueabihf",
             "--sysroot='$RPI_ROOT'",
-            "-march=armv7-a"
+            "-march=armv7-a",
             "-mfpu=neon",
             "-mthumb"
           ]
