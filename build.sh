@@ -88,14 +88,14 @@ if true; then
             "-g",
             "--target=armv7a-linux-gnueabihf",
             "--sysroot='$RPI_ROOT'",
-			"-march=armv7-a"
+            "-march=armv7-a"
             "-mfpu=neon",
-			"-mthumb"
+            "-mthumb"
           ]
-	  extra_ldflags = [
-			"--sysroot='$RPI_ROOT'",
-			"--target=armv7a-linux-gnueabihf"
-		  ]
+      extra_ldflags = [
+            "--sysroot='$RPI_ROOT'",
+            "--target=armv7a-linux-gnueabihf"
+          ]
         '
 
     ninja 'SkiaSharp' -C out/linux/arm
