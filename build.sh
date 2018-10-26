@@ -74,7 +74,7 @@ if true; then
      
       extra_cflags = [
         "-g",
-        "-target=armv7a-linux-gnueabihf",
+        "--target=armv7a-linux-gnueabihf",
         "-mfloat-abi=hard",
         "-mfpu=neon",
         "--sysroot='$RPI_ROOT'",
