@@ -63,7 +63,7 @@ if true; then
       cxx = "clang++-4.0"
       
       skia_enable_gpu = false
-      skia_use_libjpeg_turbo = false	  
+      skia_use_libjpeg_turbo = false
       skia_use_libwebp = false
      
       is_official_build = true
